@@ -15,7 +15,7 @@ public class DataTable {
 		this.nor = nor;
 		this.noc = noc;
 		this.employees = e;
-		this.tableHeaders = th;
+		this.tableHeaders = th; 
 	}
 
 	// Mutator methods
