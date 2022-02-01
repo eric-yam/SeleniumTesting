@@ -13,7 +13,7 @@ public class DataTable {
 	// Constructor
 	public DataTable(int nor, int noc, List<Employee> e, List<String> th) {
 		this.nor = nor;
-		this.noc = noc;
+		this.noc = noc; 
 		this.employees = e;
 		this.tableHeaders = th; 
 	}
