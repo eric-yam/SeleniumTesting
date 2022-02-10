@@ -15,13 +15,13 @@ public class TableDataTester {
 		driver = new ChromeDriver();
 		driver.get("https://the-internet.herokuapp.com/tables");	
 		
-		Table t = new Table("table1");
-		Table t2 = new Table("table2");
+		Table t = new Table("table1", driver);
+		Table t2 = new Table("table2", driver);
 		
 		//implement equals method for Table and TableData class later 
 		//add this in the constructor later
-		t.withDriver(driver);
-		t2.withDriver(driver);
+//		t.withDriver(driver);
+//		t2.withDriver(driver);
 		
 		System.out.println(t.getRows());
 		System.out.println(t.getRow(1));

@@ -17,8 +17,9 @@ public class Table implements GenericTable {
 	private String tableID;
 
 	// Constructor
-	public Table(String tableID) {
+	public Table(String tableID, WebDriver d) {
 		this.tableID = tableID;
+		this.withDriver(d);
 	}
 
 	// Accessor methods
@@ -62,8 +63,6 @@ public class Table implements GenericTable {
 		headerRow.withDue(this.getHeaders().get(3));
 		headerRow.withWebsite(this.getHeaders().get(4));
 
-		// error check, what if number of headers is not 4
-
 		return headerRow;
 	}
 
@@ -82,19 +81,9 @@ public class Table implements GenericTable {
 	@Override
 	public List<TableData> getRows() {
 
-		List<String> tempData;
 		List<TableData> dataRows = new ArrayList<TableData>();
 		List<WebElement> rowElements = driver.findElements(By.xpath("//*[@id=\"" + this.tableID + "\"]/tbody/tr"));
 		int numRows = rowElements.size();
-//		List<WebElement> colElements = driver.findElements(By.xpath("//*[@id=\"table"+ this.tableID+"\"]/tbody/tr[1]/td"));
-//		int numCol = colElements.size();
-
-//		for (int i = 1; i <= numRows; i++) {
-//			tempData = new ArrayList<String>();
-//			for (int j = 1; j <= numCol; j++) {
-//				tempData.add(driver.findElement(By.xpath("")))
-//			}
-//		} 
 
 		for (int i = 1; i <= numRows; i++) {
 
@@ -105,18 +94,18 @@ public class Table implements GenericTable {
 			dataRows.add(t);
 		}
 
-		// error check, what if table doesn't have the same number of columns, null
-		// pointer exception may occur
-
 		return dataRows;
 	}
 
-	public boolean sameHeaderOrder(List<String> otherTableHeaders) {
+	public boolean sameHeaderOrder(Table other) {
 
 		boolean isSame = true;
+		List<String> table1 = this.getHeaders();
+		List<String> table2 = other.getHeaders();
+		int numCol = this.getHeaders().size();
 
-		for (int i = 0; i < this.getHeaders().size(); i++) {
-			isSame = isSame && (this.getHeaders().get(i).equals(otherTableHeaders.get(i)));
+		for (int i = 0; i < numCol; i++) {
+			isSame = isSame && (table1.get(i).equals(table2.get(i)));
 		}
 
 		return isSame;
@@ -125,12 +114,15 @@ public class Table implements GenericTable {
 	public boolean tableRowExist(Table other) {
 
 		boolean isExist = true;
+		int numRows = this.getRows().size();
+		List<TableData> table1 = this.getRows();
+		List<TableData> table2 = other.getRows();
 
-		for (int i = 0; i < this.getRows().size(); i++) {
+		for (int i = 0; i < numRows; i++) {
 			boolean isEqual = false;
-			for (int j = 0; j < this.getRows().size(); j++) {
+			for (int j = 0; j < numRows; j++) {
 
-				isEqual = isEqual || this.getRow(i).equals(other.getRow(j));
+				isEqual = isEqual || table1.get(i).equals(table2.get(j));
 			}
 
 			isExist = isExist && isEqual;
@@ -139,7 +131,6 @@ public class Table implements GenericTable {
 		return isExist;
 	}
 
-	
 	@Override
 	public boolean equals(Object obj) {
 
@@ -150,10 +141,16 @@ public class Table implements GenericTable {
 		} else {
 
 			Table other = (Table) obj;
-				
-			return this.getRows().size() == other.getRows().size() && this.getHeaders().size() == other.getHeaders().size()
-					&& this.sameHeaderOrder(other.getHeaders()) && this.tableRowExist(other)
-					&& other.tableRowExist(this);
+			
+
+			// Both tables must have the same number of rows and columns
+			// Both tables must have the same order of headers
+			// The entire row of data except actions must be found in the other table
+			// regardless of sort order
+
+			return this.getRows().size() == other.getRows().size()
+					&& this.getHeaders().size() == other.getHeaders().size() && this.sameHeaderOrder(other)
+					&& this.tableRowExist(other) && other.tableRowExist(this);
 		}
 
 	}
