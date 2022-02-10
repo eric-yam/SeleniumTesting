@@ -5,9 +5,12 @@
     <classes>
       <class name="JAN_2022_01_31.DataTableTestNG">
         <methods>
+          <include name="Test_11"/>
           <include name="Test_07"/>
           <include name="initializeDriver"/>
           <include name="finishTests"/>
+          <include name="Test_09"/>
+          <include name="Test_10"/>
         </methods>
       </class> <!-- JAN_2022_01_31.DataTableTestNG -->
     </classes>
