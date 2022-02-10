@@ -3,16 +3,17 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="JAN_2022_01_31.DataTableTestNG">
+      <class name="FEB_2022_02_09.TableTestNG">
         <methods>
-          <include name="Test_11"/>
-          <include name="Test_07"/>
-          <include name="initializeDriver"/>
+          <include name="Test_03"/>
           <include name="finishTests"/>
-          <include name="Test_09"/>
-          <include name="Test_10"/>
+          <include name="Test_04"/>
+          <include name="Test_05"/>
+          <include name="Test_02"/>
+          <include name="Test_01"/>
+          <include name="initializeDriver"/>
         </methods>
-      </class> <!-- JAN_2022_01_31.DataTableTestNG -->
+      </class> <!-- FEB_2022_02_09.TableTestNG -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
