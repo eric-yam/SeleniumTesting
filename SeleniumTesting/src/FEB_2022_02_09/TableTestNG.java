@@ -74,7 +74,7 @@ public class TableTestNG {
 	}
 
 	@Test
-	public void Test_05() {
+	public void Table_Equals() {
 		// Both tables are equivalent when both tables have the same number of rows,
 		// columns, column order and each row can be found within the other table
 		// regardless of sort order
@@ -86,7 +86,7 @@ public class TableTestNG {
 	}
 
 	@Test
-	public void Test_06() {
+	public void Test_Different_Order() {
 		// Test tables of different sort order, but still exists
 		Table t1 = new Table("table1", driver);
 
@@ -103,7 +103,7 @@ public class TableTestNG {
 	}
 
 	@Test
-	public void Test_07() {
+	public void Test_Missing_Data_Row() {
 		// Test tables where an entry does not exist
 		Table t1 = new Table("table1", driver);
 
@@ -121,7 +121,23 @@ public class TableTestNG {
 	}
 
 	@Test
-	public void Test_08() {
+	public void Test_Missing_Data_Row_2() {
+		// Only one of the tablerows can be found in the other table
+
+		Table t1 = new Table("table1", driver);
+		List<TableData> exampleRows = t1.getRows();
+
+		exampleRows.set(0, t1.getRow(0));
+		exampleRows.set(1, t1.getRow(0));
+		exampleRows.set(2, t1.getRow(0));
+		exampleRows.set(3, t1.getRow(0));
+
+		assertFalse(t1.tableRowExist(exampleRows));
+
+	}
+
+	@Test
+	public void Test_Header_Order_Different() {
 		// Header order is different
 
 		Table t1 = new Table("table1", driver);
@@ -135,7 +151,7 @@ public class TableTestNG {
 	}
 
 	@Test
-	public void Test_09() {
+	public void Test_Header_Data_Different() {
 		// Header data is different
 
 		Table t1 = new Table("table1", driver);
@@ -150,7 +166,7 @@ public class TableTestNG {
 	}
 
 	@Test
-	public void Test_10() {
+	public void Test_Table_Different_Data() {
 		// data of tables are different
 
 		Table t1 = new Table("table1", driver);
@@ -184,19 +200,4 @@ public class TableTestNG {
 		assertFalse(t1.tableRowExist(exampleRows));
 	}
 
-	@Test
-	public void Test_11() {
-		// Only one of the tablerows can be found in the other table
-
-		Table t1 = new Table("table1", driver);
-		List<TableData> exampleRows = t1.getRows();
-
-		exampleRows.set(0, t1.getRow(0));
-		exampleRows.set(1, t1.getRow(0));
-		exampleRows.set(2, t1.getRow(0));
-		exampleRows.set(3, t1.getRow(0));
-
-		assertFalse(t1.tableRowExist(exampleRows));
-
-	}
 }

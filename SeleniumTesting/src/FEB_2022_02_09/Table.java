@@ -6,9 +6,6 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-
-import JAN_2022_01_31.Employee;
 
 public class Table implements GenericTable {
 
@@ -97,20 +94,6 @@ public class Table implements GenericTable {
 		return dataRows;
 	}
 
-	// public boolean sameHeaderOrder(Table other) {
-	//
-	// boolean isSame = true;
-	// List<String> table1 = this.getHeaders();
-	// List<String> table2 = other.getHeaders();
-	// int numCol = this.getHeaders().size();
-	//
-	// for (int i = 0; i < numCol; i++) {
-	// isSame = isSame && (table1.get(i).equals(table2.get(i)));
-	// }
-	//
-	// return isSame;
-	// }
-
 	public boolean sameHeaderOrder(List<String> t2Headers) {
 
 		boolean isSame = true;
@@ -122,26 +105,6 @@ public class Table implements GenericTable {
 
 		return isSame;
 	}
-
-	// public boolean tableRowExist(Table other) {
-	//
-	// boolean isExist = true;
-	// int numRows = this.getRows().size();
-	// List<TableData> table1 = this.getRows();
-	// List<TableData> table2 = other.getRows();
-	//
-	// for (int i = 0; i < numRows; i++) {
-	// boolean isEqual = false;
-	// for (int j = 0; j < numRows && !isEqual; j++) {
-	//
-	// isEqual = isEqual || table1.get(i).equals(table2.get(j));
-	// }
-	//
-	// isExist = isExist && isEqual;
-	// }
-	//
-	// return isExist;
-	// }
 
 	public boolean tableRowExist(List<TableData> t2DataRows) {
 
