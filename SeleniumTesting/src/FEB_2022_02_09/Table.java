@@ -97,32 +97,62 @@ public class Table implements GenericTable {
 		return dataRows;
 	}
 
-	public boolean sameHeaderOrder(Table other) {
+	// public boolean sameHeaderOrder(Table other) {
+	//
+	// boolean isSame = true;
+	// List<String> table1 = this.getHeaders();
+	// List<String> table2 = other.getHeaders();
+	// int numCol = this.getHeaders().size();
+	//
+	// for (int i = 0; i < numCol; i++) {
+	// isSame = isSame && (table1.get(i).equals(table2.get(i)));
+	// }
+	//
+	// return isSame;
+	// }
+
+	public boolean sameHeaderOrder(List<String> t2Headers) {
 
 		boolean isSame = true;
-		List<String> table1 = this.getHeaders();
-		List<String> table2 = other.getHeaders();
-		int numCol = this.getHeaders().size();
+		List<String> t1Headers = this.getHeaders();
 
-		for (int i = 0; i < numCol; i++) {
-			isSame = isSame && (table1.get(i).equals(table2.get(i)));
+		for (int i = 0; i < t1Headers.size(); i++) {
+			isSame = isSame && (t1Headers.get(i).equals(t2Headers.get(i)));
 		}
 
 		return isSame;
 	}
 
-	public boolean tableRowExist(Table other) {
+	// public boolean tableRowExist(Table other) {
+	//
+	// boolean isExist = true;
+	// int numRows = this.getRows().size();
+	// List<TableData> table1 = this.getRows();
+	// List<TableData> table2 = other.getRows();
+	//
+	// for (int i = 0; i < numRows; i++) {
+	// boolean isEqual = false;
+	// for (int j = 0; j < numRows && !isEqual; j++) {
+	//
+	// isEqual = isEqual || table1.get(i).equals(table2.get(j));
+	// }
+	//
+	// isExist = isExist && isEqual;
+	// }
+	//
+	// return isExist;
+	// }
+
+	public boolean tableRowExist(List<TableData> t2DataRows) {
 
 		boolean isExist = true;
-		int numRows = this.getRows().size();
-		List<TableData> table1 = this.getRows();
-		List<TableData> table2 = other.getRows();
+		List<TableData> t1DataRows = this.getRows();
 
-		for (int i = 0; i < numRows; i++) {
+		for (int i = 0; i < t1DataRows.size(); i++) {
 			boolean isEqual = false;
-			for (int j = 0; j < numRows; j++) {
+			for (int j = 0; j < t1DataRows.size() && !isEqual; j++) {
 
-				isEqual = isEqual || table1.get(i).equals(table2.get(j));
+				isEqual = isEqual || t1DataRows.get(i).equals(t2DataRows.get(j));
 			}
 
 			isExist = isExist && isEqual;
@@ -141,16 +171,25 @@ public class Table implements GenericTable {
 		} else {
 
 			Table other = (Table) obj;
-			
+
+			List<String> t1Headers = this.getHeaders();
+			int t1Col = t1Headers.size();
+			List<String> t2Headers = other.getHeaders();
+			int t2Col = t2Headers.size();
+
+			List<TableData> t1DataRow = this.getRows();
+			int t1Rows = t1DataRow.size();
+			List<TableData> t2DataRow = other.getRows();
+			int t2Rows = t2DataRow.size();
 
 			// Both tables must have the same number of rows and columns
 			// Both tables must have the same order of headers
 			// The entire row of data except actions must be found in the other table
 			// regardless of sort order
 
-			return this.getRows().size() == other.getRows().size()
-					&& this.getHeaders().size() == other.getHeaders().size() && this.sameHeaderOrder(other)
-					&& this.tableRowExist(other) && other.tableRowExist(this);
+			return t1Rows == t2Rows && t1Col == t2Col && this.sameHeaderOrder(t2Headers)
+					&& this.tableRowExist(t2DataRow) && other.tableRowExist(t1DataRow);
+
 		}
 
 	}

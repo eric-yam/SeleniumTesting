@@ -1,7 +1,10 @@
 package FEB_2022_02_09;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
+
+import java.util.List;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -52,7 +55,9 @@ public class TableTestNG {
 		Table t1 = new Table("table1", driver);
 		Table t2 = new Table("table2", driver);
 
-		assertTrue(t1.sameHeaderOrder(t2));
+		List<String> t2Headers = t2.getHeaders();
+
+		assertTrue(t1.sameHeaderOrder(t2Headers));
 	}
 
 	@Test
@@ -61,8 +66,11 @@ public class TableTestNG {
 		Table t1 = new Table("table1", driver);
 		Table t2 = new Table("table2", driver);
 
-		assertTrue(t1.tableRowExist(t2));
-		assertTrue(t2.tableRowExist(t1));
+		List<TableData> t1DataRow = t1.getRows();
+		List<TableData> t2DataRow = t2.getRows();
+
+		assertTrue(t1.tableRowExist(t2DataRow));
+		assertTrue(t2.tableRowExist(t1DataRow));
 	}
 
 	@Test
@@ -70,10 +78,125 @@ public class TableTestNG {
 		// Both tables are equivalent when both tables have the same number of rows,
 		// columns, column order and each row can be found within the other table
 		// regardless of sort order
-		
+
 		Table t1 = new Table("table1", driver);
 		Table t2 = new Table("table2", driver);
-		
-		assertEquals(t1,t2);
+
+		assertEquals(t1, t2);
+	}
+
+	@Test
+	public void Test_06() {
+		// Test tables of different sort order, but still exists
+		Table t1 = new Table("table1", driver);
+
+		List<TableData> exampleRows = t1.getRows();
+
+		TableData temp = exampleRows.get(0);
+
+		exampleRows.set(0, exampleRows.get(1));
+		exampleRows.set(1, temp);
+
+		assertTrue(t1.getRows().size() == exampleRows.size());
+		assertTrue(t1.tableRowExist(exampleRows));
+
+	}
+
+	@Test
+	public void Test_07() {
+		// Test tables where an entry does not exist
+		Table t1 = new Table("table1", driver);
+
+		List<TableData> exampleRows = t1.getRows();
+		TableData exampleData = new TableData();
+		exampleData.withLastName("Wong");
+		exampleData.withFirstName("William");
+		exampleData.withEmail("william@hotmail.com");
+		exampleData.withDue("$23890746");
+		exampleData.withWebsite("william.com");
+		exampleRows.set(2, exampleData);
+
+		assertFalse(t1.tableRowExist(exampleRows));
+
+	}
+
+	@Test
+	public void Test_08() {
+		// Header order is different
+
+		Table t1 = new Table("table1", driver);
+
+		List<String> exampleHeaders = t1.getHeaders();
+		exampleHeaders.set(0, "First Name");
+		exampleHeaders.set(1, "Last Name");
+
+		assertFalse(t1.sameHeaderOrder(exampleHeaders));
+
+	}
+
+	@Test
+	public void Test_09() {
+		// Header data is different
+
+		Table t1 = new Table("table1", driver);
+
+		List<String> exampleHeaders = t1.getHeaders();
+		exampleHeaders.set(0, "Company");
+		exampleHeaders.set(1, "Games");
+		exampleHeaders.set(2, "Course");
+		exampleHeaders.set(3, "ID");
+
+		assertFalse(t1.sameHeaderOrder(exampleHeaders));
+	}
+
+	@Test
+	public void Test_10() {
+		// data of tables are different
+
+		Table t1 = new Table("table1", driver);
+
+		List<String> exampleHeaders = t1.getHeaders();
+		exampleHeaders.set(0, "Company");
+		exampleHeaders.set(1, "Games");
+		exampleHeaders.set(2, "Course");
+		exampleHeaders.set(3, "ID");
+
+		List<TableData> exampleRows = t1.getRows();
+
+		TableData exampleData = new TableData();
+		TableData exampleData2 = new TableData();
+
+		exampleData.withLastName("Wong");
+		exampleData.withFirstName("William");
+		exampleData.withEmail("william@hotmail.com");
+		exampleData.withDue("$23890746");
+		exampleData.withWebsite("william.com");
+		exampleRows.set(2, exampleData);
+
+		exampleData2.withLastName("Jericho");
+		exampleData2.withFirstName("public");
+		exampleData2.withEmail("@live.ca");
+		exampleData2.withDue("$23890746");
+		exampleData2.withWebsite("william.com");
+		exampleRows.set(3, exampleData2);
+
+		assertFalse(t1.sameHeaderOrder(exampleHeaders));
+		assertFalse(t1.tableRowExist(exampleRows));
+	}
+
+	@Test
+	public void Test_11() {
+		// Only one of the tablerows can be found in the other table
+
+		Table t1 = new Table("table1", driver);
+		List<TableData> exampleRows = t1.getRows();
+
+		exampleRows.set(0, t1.getRow(0));
+		exampleRows.set(1, t1.getRow(0));
+		exampleRows.set(2, t1.getRow(0));
+		exampleRows.set(3, t1.getRow(0));
+
+		assertFalse(t1.tableRowExist(exampleRows));
+
 	}
 }

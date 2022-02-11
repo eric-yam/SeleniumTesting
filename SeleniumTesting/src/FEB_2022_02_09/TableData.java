@@ -16,7 +16,7 @@ public class TableData {
 
 	
 	//Constructor
-	public TableData() {}
+	public TableData() {} //Empty constructor
 	
 	public TableData(WebElement tableRow) {
 		
