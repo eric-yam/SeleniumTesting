@@ -42,7 +42,7 @@ public class TableTestNG {
 	}
 
 	@Test
-	public void Has_Num_Columns() {
+	public void Has_Same_Columns() {
 		// Same number of columns
 		Table t1 = new Table("table1", driver);
 		Table t2 = new Table("table2", driver);
