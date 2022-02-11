@@ -5,12 +5,8 @@
     <classes>
       <class name="FEB_2022_02_09.TableTestNG">
         <methods>
-          <include name="Test_03"/>
           <include name="finishTests"/>
-          <include name="Test_04"/>
-          <include name="Test_05"/>
-          <include name="Test_02"/>
-          <include name="Test_01"/>
+          <include name="Test_11"/>
           <include name="initializeDriver"/>
         </methods>
       </class> <!-- FEB_2022_02_09.TableTestNG -->

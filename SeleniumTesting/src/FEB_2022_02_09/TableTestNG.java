@@ -32,7 +32,7 @@ public class TableTestNG {
 	}
 
 	@Test
-	public void Test_01() {
+	public void Has_Same_Rows() {
 		// Same number of rows
 		Table t1 = new Table("table1", driver);
 		Table t2 = new Table("table2", driver);
@@ -42,7 +42,7 @@ public class TableTestNG {
 	}
 
 	@Test
-	public void Test_02() {
+	public void Has_Num_Columns() {
 		// Same number of columns
 		Table t1 = new Table("table1", driver);
 		Table t2 = new Table("table2", driver);
@@ -50,7 +50,7 @@ public class TableTestNG {
 	}
 
 	@Test
-	public void Test_03() {
+	public void Same_Header_Data_Order() {
 		// Same header row order
 		Table t1 = new Table("table1", driver);
 		Table t2 = new Table("table2", driver);
@@ -61,7 +61,7 @@ public class TableTestNG {
 	}
 
 	@Test
-	public void Test_04() {
+	public void Row_Exist() {
 		// Each row exists within the other table regardless of sort order
 		Table t1 = new Table("table1", driver);
 		Table t2 = new Table("table2", driver);
