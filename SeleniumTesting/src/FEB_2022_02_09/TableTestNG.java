@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 
 public class TableTestNG {
 
-	// WebDriver
 	private WebDriver driver;
 
 	@BeforeTest
