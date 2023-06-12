@@ -199,5 +199,4 @@ public class TableTestNG {
 		assertFalse(t1.sameHeaderOrder(exampleHeaders));
 		assertFalse(t1.tableRowExist(exampleRows));
 	}
-
 }
